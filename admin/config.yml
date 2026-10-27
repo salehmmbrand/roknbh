@@ -1,0 +1,67 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/uploads"
+public_folder: "assets/uploads"
+
+site_url: https://rokn.bh
+display_url: https://rokn.bh
+logo_url: /assets/logo-navy.png
+
+collections:
+  - name: "products"
+    label: "المنتجات"
+    files:
+      - name: "products"
+        label: "قائمة المنتجات"
+        file: "content/products.json"
+        fields:
+          - label: "المنتجات"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.name}} — {{fields.price}} د.ب"
+            fields:
+              - {label: "المعرّف (إنجليزي بدون مسافات)", name: "id", widget: "string", hint: "مثال: manzil"}
+              - {label: "اسم اللوحة", name: "name", widget: "string"}
+              - {label: "الآية", name: "ayah", widget: "string"}
+              - {label: "السورة ورقم الآية", name: "ref", widget: "string", hint: "مثال: المؤمنون · 29"}
+              - {label: "السعر الحالي (د.ب)", name: "price", widget: "number", value_type: "float", min: 0}
+              - {label: "السعر قبل الخصم (د.ب) — اتركه فارغًا إن لم يوجد خصم", name: "was", widget: "number", value_type: "float", required: false}
+              - {label: "شارة صغيرة على الصورة (اختياري)", name: "badge", widget: "string", required: false, hint: "مثال: الأكثر طلبًا"}
+              - {label: "متوفر للبيع", name: "available", widget: "boolean", default: true}
+              - {label: "الوصف", name: "desc", widget: "text"}
+              - {label: "الصورة الرئيسية (طولية 4:5)", name: "image1", widget: "image"}
+              - {label: "الصورة الثانية (تظهر عند التمرير)", name: "image2", widget: "image", required: false}
+              - {label: "الصورة الثالثة", name: "image3", widget: "image", required: false}
+              - {label: "الصورة الرابعة", name: "image4", widget: "image", required: false}
+              - {label: "الصورة الخامسة", name: "image5", widget: "image", required: false}
+              - {label: "موضع اللوحة في الصورة عموديًا (0 أعلى – 100 أسفل، الافتراضي 65)", name: "focus", widget: "number", required: false, min: 0, max: 100, hint: "غيّره فقط إذا ظهرت اللوحة مقطوعة في البطاقة"}
+
+  - name: "site"
+    label: "محتوى الموقع"
+    files:
+      - name: "site"
+        label: "الواجهة والإعدادات"
+        file: "content/site.json"
+        fields:
+          - {label: "عنوان الواجهة", name: "hero_title", widget: "string"}
+          - {label: "نص الواجهة", name: "hero_text", widget: "string"}
+          - {label: "صورة الواجهة", name: "hero_image", widget: "image"}
+          - {label: "عنوان المجموعة", name: "collection_title", widget: "string"}
+          - {label: "نص المجموعة", name: "collection_text", widget: "text"}
+          - {label: "صورة المجموعة", name: "collection_image", widget: "image"}
+          - {label: "عنوان قسم عن رُكن", name: "story_title", widget: "string"}
+          - {label: "نص عن رُكن", name: "story_text", widget: "text"}
+          - {label: "الجملة الختامية", name: "story_quote", widget: "string"}
+          - {label: "صورة صفحة الطلب المخصص", name: "custom_image", widget: "image"}
+          - {label: "رقم واتساب (بصيغة دولية بدون +)", name: "whatsapp", widget: "string", hint: "مثال: 97339396882"}
+          - {label: "حساب إنستقرام (بدون @)", name: "instagram", widget: "string"}
+          - {label: "الآيبان", name: "iban", widget: "string"}
+          - {label: "اسم البنك", name: "bank", widget: "string"}
+          - {label: "اسم المستفيد", name: "beneficiary", widget: "string"}
+          - {label: "رسوم التوصيل (د.ب)", name: "delivery_fee", widget: "number", value_type: "float", min: 0}
+          - {label: "مدة التوصيل", name: "delivery_days", widget: "string", hint: "مثال: خلال 24 ساعة"}
+          - {label: "الطلب المخصص يبدأ من (د.ب)", name: "custom_from_price", widget: "number", value_type: "float"}
+          - {label: "معرّف Google Analytics (يبدأ بـ G-)", name: "ga_id", widget: "string", required: false, hint: "اتركه فارغًا لتعطيل الإحصائيات"}
+          - {label: "معرّف Microsoft Clarity (اختياري)", name: "clarity_id", widget: "string", required: false, hint: "خرائط حرارية وتسجيل الجلسات — مجاني"}
