@@ -468,7 +468,7 @@ footer .fine{border-top:1px solid var(--line);margin-top:36px;padding-top:18px;d
     <div class="wrap mc">
       <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M4 19c4-6 8-10 16-14"/><path d="M4 13c3-3 6-5 12-8"/><path d="M8 20c2-4 5-7 11-10"/></svg><div><b>خشب جوز طبيعي</b><p>لكل لوحة عروقها ولونها، فلا تتطابق قطعتان.</p></div></div>
       <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M4 8h16v12H4z"/><path d="M4 8l8-4 8 4"/><path d="M12 4v16"/></svg><div><b>تغليف هدية</b><p>علبة بشعار رُكن، جاهزة تُقدَّم كما هي.</p></div></div>
-      <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="1.5"/><circle cx="17" cy="18" r="1.5"/></svg><div><b>حامل خشبي مرفق</b><p>تُعرض على الطاولة أو الرف مباشرة بدون تعليق.</p></div></div>
+      <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="1.5"/><circle cx="17" cy="18" r="1.5"/></svg><div><b>ستاند معدني مدمج</b><p>مثبّت في ظهر اللوحة، فتُعرض على الطاولة أو الرف مباشرة بدون تعليق.</p></div></div>
     </div>
   </section>
 
@@ -476,7 +476,7 @@ footer .fine{border-top:1px solid var(--line);margin-top:36px;padding-top:18px;d
     <div class="wrap" style="max-width:720px">
       <div class="sh"><h2>أسئلة شائعة</h2></div>
       <div class="acc" style="margin-top:0">
-        <details><summary>ما مقاس اللوحة وكيف تُعرض؟</summary><div class="body">المقاس <span class="lat">25 × 20</span> سم تقريبًا بسماكة خشب الجوز الطبيعي، وتأتي مع حامل خشبي صغير لتُعرض على الطاولة أو الرف مباشرة دون تثبيت في الجدار.</div></details>
+        <details><summary>ما مقاس اللوحة وكيف تُعرض؟</summary><div class="body">المقاس <span class="lat">25 × 20</span> سم تقريبًا بسماكة <span class="lat">2</span> سم من خشب الجوز الطبيعي، ومثبّت في ظهرها ستاند معدني لتُعرض على الطاولة أو الرف مباشرة دون تثبيت في الجدار.</div></details>
         <details><summary>هل الخشب طبيعي؟ ولماذا تختلف اللوحة عن الصورة قليلًا؟</summary><div class="body">نعم، خشب جوز طبيعي بالكامل. لكل قطعة عروقها ودرجة لونها، فلا تتطابق لوحتان تمامًا — وهذا جزء من قيمتها.</div></details>
         <details><summary>كم يستغرق التوصيل وكم تكلفته؟</summary><div class="body">اللوحات الجاهزة تُوصّل <span id="faq-days">خلال 24 ساعة</span> لكل مناطق البحرين بـ <span class="lat" id="faq-fee">1.5</span> د.ب.</div></details>
         <details><summary>كيف أدفع؟</summary><div class="body">بالتحويل البنكي على الآيبان أو عبر بنفت‌باي (فوري+) بعد إرسال الطلب، ثم ترسل صورة الإيصال على واتساب ونؤكد لك الاستلام والموعد.</div></details>
@@ -729,7 +729,7 @@ function renderPiece(id){
       <div class="stock"><i style="${p.so?'background:#B5442C':''}"></i>${p.so?'غير متوفرة حاليًا — تواصل معنا على واتساب للحجز':(p.stock!==null&&p.stock<=3?`متبقي <span class="lat">${p.stock}</span> فقط — جاهزة للتسليم`:'متوفرة — جاهزة للتسليم')}</div>
       <p class="desc">${p.desc}</p>
       <div class="acc">
-        <details open><summary>المواصفات</summary><div class="body"><div><span>الخامة</span><span>خشب جوز طبيعي</span></div><div><span>المقاس</span><span><span class="lat">25 × 20</span> سم تقريبًا</span></div><div><span>التثبيت</span><span>حامل خشبي للطاولة</span></div><div><span>التغليف</span><span>علبة هدية بشعار رُكن</span></div></div></details>
+        <details open><summary>المواصفات</summary><div class="body"><div><span>الخامة</span><span>خشب جوز طبيعي</span></div><div><span>المقاس</span><span><span class="lat">25 × 20</span> سم تقريبًا</span></div><div><span>السماكة</span><span><span class="lat">2</span> سم</span></div><div><span>التثبيت</span><span>ستاند معدني من الخلف</span></div><div><span>التغليف</span><span>علبة هدية بشعار رُكن</span></div></div></details>
         <details><summary>التوصيل والدفع</summary><div class="body">توصيل لكل البحرين بـ <span class="lat">${DELIVERY}</span> د.ب ${SITE.delivery_days}. الدفع بالتحويل البنكي أو بنفت‌باي بعد تأكيد الطلب على واتساب.</div></details>
         <details><summary>الاستبدال</summary><div class="body">لأن الخشب طبيعي، لكل لوحة عروقها ودرجة لونها وقد تختلف قليلًا عن الصورة. الاستبدال خلال <span class="lat">3</span> أيام من الاستلام للعيوب الصناعية. <a href="#/policies" class="link">التفاصيل</a></div></details>
       </div>
