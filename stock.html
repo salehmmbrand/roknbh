@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>مخزون رُكن</title>
+<link rel="icon" href="assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#2B2926;--muted:#6F6A63;--line:#E6E1DA;--bg2:#F6F3EE;--navy:#264B65;--ok:#2b7d50;--bad:#B4452E}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.8;padding:0 16px 60px}
+.wrap{max-width:720px;margin:0 auto}
+header{display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-bottom:1px solid var(--line);margin-bottom:22px}
+header img{height:30px}
+h1{font-size:20px;font-weight:500}
+h2{font-size:17px;font-weight:500;margin:26px 0 10px}
+.card{border:1px solid var(--line);border-radius:12px;padding:16px;background:#fff;margin-bottom:12px}
+input{font:inherit;border:1px solid #CFC8BE;border-radius:8px;padding:10px 12px;width:100%}
+input[type=number]{width:96px;text-align:center;direction:ltr}
+.btn{font:inherit;border:1px solid var(--navy);background:var(--navy);color:#fff;border-radius:8px;padding:9px 16px;cursor:pointer;font-weight:500}
+.btn.o{background:#fff;color:var(--navy)}
+.btn.bad{background:#fff;color:var(--bad);border-color:var(--bad)}
+.btn.ok{background:#fff;color:var(--ok);border-color:var(--ok)}
+.btn:disabled{opacity:.5}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row .n{font-weight:500}
+.row small{display:block;color:var(--muted);font-size:12.5px}
+.qty{display:inline-flex;align-items:center;gap:6px}
+.qty button{width:34px;height:34px;border:1px solid #CFC8BE;background:#fff;border-radius:8px;font-size:18px;cursor:pointer}
+.tag{font-size:11.5px;padding:2px 9px;border-radius:999px;font-weight:500}
+.tag.pending{background:#FFF4E0;color:#9A6200}.tag.confirmed{background:#E9F6EE;color:var(--ok)}.tag.cancelled{background:#F3F3F3;color:var(--muted)}
+.muted{color:var(--muted);font-size:13px}
+.toast{position:fixed;top:16px;right:50%;transform:translateX(50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:8px;font-size:13.5px;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.on{opacity:1}
+.low{color:var(--bad);font-weight:600}
+#login{max-width:420px;margin:60px auto}
+.hid{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div style="display:flex;align-items:center;gap:12px"><img src="assets/logo-navy.png" alt="رُكن"><h1>المخزون والطلبات</h1></div><button class="btn o hid" id="logout">خروج</button></header>
+
+<div id="login" class="card">
+  <p style="margin-bottom:10px">أدخل رمز الإدارة للمتابعة.</p>
+  <input id="tok" type="password" placeholder="رمز الإدارة" autocomplete="current-password">
+  <button class="btn" style="margin-top:12px;width:100%" id="go">دخول</button>
+  <p class="muted" style="margin-top:10px">الرمز محفوظ في إعدادات Netlify باسم STOCK_ADMIN_TOKEN.</p>
+</div>
+
+<div id="app" class="hid">
+  <h2>المخزون الحالي</h2>
+  <div class="card" id="stock"></div>
+  <p class="muted">الرقم = القطع الجاهزة للبيع الآن. اتركه فارغًا إذا تبي المنتج بدون حد (غير متتبّع). يتناقص تلقائيًا مع كل طلب من الموقع، ويرجع عند إلغاء الطلب.</p>
+  <h2>الطلبات <span class="muted" id="ocount"></span></h2>
+  <div id="orders"></div>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const $=s=>document.querySelector(s);
+let TOKEN=localStorage.getItem('rokn_admin')||'',PRODUCTS=[],STOCK={};
+const api=async(body)=>{const r=await fetch('/api/stock',{method:'POST',headers:{'content-type':'application/json','x-admin-token':TOKEN},body:JSON.stringify(body)});if(r.status===401)throw new Error('auth');return r.json()};
+let tt;const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),1800)};
+const fmtDate=s=>new Date(s).toLocaleString('ar-BH',{dateStyle:'medium',timeStyle:'short'});
+function renderStock(){
+  $('#stock').innerHTML=PRODUCTS.map(p=>{const v=STOCK[p.id];const tracked=v!==undefined;return`<div class="row"><div><div class="n">${p.name}</div><small>${p.id}${tracked?(v<=0?' · <span class="low">نفدت</span>':v<=3?' · <span class="low">متبقي '+v+'</span>':''):' · غير متتبّع'}</small></div>
+  <div class="qty"><button data-d="-1" data-id="${p.id}">−</button><input type="number" min="0" data-id="${p.id}" value="${tracked?v:''}" placeholder="∞"><button data-d="1" data-id="${p.id}">+</button></div></div>`}).join('')+`<div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end"><button class="btn" id="save">حفظ المخزون</button></div>`;
+  $('#stock').querySelectorAll('button[data-d]').forEach(b=>b.onclick=()=>{const i=$('#stock').querySelector(`input[data-id="${b.dataset.id}"]`);i.value=Math.max(0,(parseInt(i.value)||0)+ +b.dataset.d)});
+  $('#save').onclick=async()=>{const stock={};$('#stock').querySelectorAll('input[data-id]').forEach(i=>{stock[i.dataset.id]=i.value===''?null:parseInt(i.value)});try{const r=await api({action:'set',stock});STOCK=r.stock;renderStock();toast('تم الحفظ')}catch(e){fail(e)}};
+}
+function renderOrders(orders){
+  $('#ocount').textContent=orders.length?`(${orders.length})`:'';
+  $('#orders').innerHTML=orders.length?orders.map(o=>`<div class="card"><div class="row" style="border:0;padding:0 0 6px"><div><div class="n lat" dir="ltr" style="display:inline-block">${o.ref}</div> <span class="tag ${o.status}">${{pending:'بانتظار الدفع',confirmed:'مؤكد',cancelled:'ملغي'}[o.status]}</span><small>${fmtDate(o.at)} · ${o.customer?.name||''} · <span dir="ltr">${o.customer?.phone||''}</span></small></div><div style="text-align:left;font-weight:500">${o.total?o.total+' د.ب':''}</div></div>
+  <div class="muted">${o.items.map(i=>`${(PRODUCTS.find(p=>p.id===i.id)||{}).name||i.id} × ${i.qty}`).join(' · ')}</div>
+  ${o.status==='pending'?`<div style="display:flex;gap:8px;margin-top:10px"><button class="btn ok" data-a="confirm" data-ref="${o.ref}">تأكيد الدفع</button><button class="btn bad" data-a="cancel" data-ref="${o.ref}">إلغاء وإرجاع المخزون</button></div>`:o.status==='confirmed'?`<div style="margin-top:10px"><button class="btn bad" data-a="cancel" data-ref="${o.ref}">إلغاء وإرجاع المخزون</button></div>`:''}</div>`).join(''):'<p class="muted">لا توجد طلبات بعد.</p>';
+  $('#orders').querySelectorAll('button[data-a]').forEach(b=>b.onclick=async()=>{if(b.dataset.a==='cancel'&&!confirm('إلغاء الطلب وإرجاع القطع للمخزون؟'))return;b.disabled=true;try{const r=await api({action:b.dataset.a,ref:b.dataset.ref});STOCK=r.stock;toast(b.dataset.a==='confirm'?'تم التأكيد':'تم الإلغاء');load()}catch(e){fail(e)}});
+}
+function fail(e){if(e.message==='auth'){localStorage.removeItem('rokn_admin');TOKEN='';show(false);toast('الرمز غير صحيح')}else toast('تعذّر الاتصال — حاول مرة أخرى')}
+function show(on){$('#login').classList.toggle('hid',on);$('#app').classList.toggle('hid',!on);$('#logout').classList.toggle('hid',!on)}
+async function load(){
+  try{
+    if(!PRODUCTS.length){const pj=await (await fetch('content/products.json',{cache:'no-store'})).json();PRODUCTS=pj.items||[]}
+    const r=await api({action:'orders'});STOCK=r.stock||{};show(true);renderStock();renderOrders(r.orders||[]);
+  }catch(e){fail(e)}
+}
+$('#go').onclick=()=>{TOKEN=$('#tok').value.trim();if(!TOKEN)return;localStorage.setItem('rokn_admin',TOKEN);load()};
+$('#tok').addEventListener('keydown',e=>{if(e.key==='Enter')$('#go').click()});
+$('#logout').onclick=()=>{localStorage.removeItem('rokn_admin');TOKEN='';show(false)};
+if(TOKEN)load();
+</script>
+</body>
+</html>

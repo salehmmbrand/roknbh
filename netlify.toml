@@ -1,7 +1,15 @@
 [build]
   publish = "."
 
+[functions]
+  node_bundler = "esbuild"
+
 [[headers]]
   for = "/content/*"
   [headers.values]
     Cache-Control = "public, max-age=60"
+
+[[headers]]
+  for = "/stock.html"
+  [headers.values]
+    X-Robots-Tag = "noindex"

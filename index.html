@@ -158,6 +158,11 @@ section.s{padding:64px 0}
 .catgrid a:hover img{transform:scale(1.06)}
 @media(max-width:749px){.catgrid{grid-template-columns:repeat(4,1fr);gap:8px}.catgrid a{font-size:12.5px}}
 
+/* stock */
+.stockn{font-size:12.5px;color:#B4452E;font-weight:500;margin-top:4px}
+/* related */
+.related .grid{grid-template-columns:repeat(3,1fr)}
+@media(max-width:749px){.related .grid{display:flex;overflow-x:auto;gap:12px;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:6px;margin:0 -16px;padding-inline:16px}.related .grid::-webkit-scrollbar{display:none}.related .card{flex:0 0 62%;scroll-snap-align:start}}
 /* image with text */
 .iwt{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:var(--rc);overflow:hidden}
 .iwt .im{aspect-ratio:1/1;background:var(--bg2)}
@@ -284,6 +289,30 @@ footer .fine{border-top:1px solid var(--line);margin-top:36px;padding-top:18px;d
 .cust .im img{width:100%;height:100%;object-fit:cover}
 @media(max-width:749px){.cust{padding:32px 0 70px}.cust .g{grid-template-columns:1fr;gap:28px}}
 
+/* payment tabs */
+.paytabs{display:flex;background:var(--bg2);border-radius:var(--r);padding:4px;margin:12px 0 14px;gap:4px}
+.paytabs button{flex:1;min-height:40px;border-radius:6px;font-size:14px;font-weight:500;color:var(--muted);transition:all .2s}
+.paytabs button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.qrbox{display:flex;justify-content:center;padding:14px;background:#fff;border:1px dashed var(--line2);border-radius:var(--r);margin-bottom:12px}
+.qrbox img{width:200px;height:200px;image-rendering:pixelated}
+.paypane ol{padding-inline-start:18px;font-size:13.5px;color:var(--muted);margin-bottom:12px}
+.paypane ol li{margin:4px 0}
+/* checkout summary (mobile) */
+.sumtop{display:none;background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);margin-bottom:20px}
+.sumtop summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;font-size:14.5px}
+.sumtop summary::-webkit-details-marker{display:none}
+.sumtop summary>span::after{content:' ▾';color:var(--muted)}
+.sumtop[open] summary>span::after{content:' ▴'}
+.sumtop .sumbody{padding:0 16px 14px;border-top:1px solid var(--line)}
+.sumtop .li{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:10px 0;font-size:13.5px}
+.sumtop .li img{width:44px;aspect-ratio:4/5;object-fit:cover;border-radius:var(--r)}
+.sumtop .li small{display:block;color:var(--muted);font-size:12px}
+@media(max-width:749px){.sumtop{display:block}.co .summary{display:none}}
+/* policies */
+.pol h2{font-size:18px;font-weight:500;margin:26px 0 10px}
+.pol ul{padding-inline-start:20px;color:var(--ink);font-size:14.5px}
+.pol li{margin:6px 0}
+.pol p{font-size:14.5px}
 /* cart drawer */
 .veil{position:fixed;inset:0;background:rgba(43,41,38,.4);z-index:70;opacity:0;pointer-events:none;transition:opacity .3s}
 .veil.on{opacity:1;pointer-events:auto}
@@ -342,7 +371,7 @@ footer .fine{border-top:1px solid var(--line);margin-top:36px;padding-top:18px;d
 .done .ref{font-size:18px;font-weight:500;margin:12px 0 24px;color:var(--ink)}
 
 /* toast + whatsapp */
-.toast{position:fixed;bottom:92px;right:50%;transform:translate(50%,12px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:var(--r);font-size:13.5px;z-index:90;opacity:0;pointer-events:none;transition:all .3s var(--e);white-space:nowrap}
+.toast{position:fixed;top:84px;right:50%;transform:translate(50%,-12px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:var(--r);font-size:13.5px;z-index:90;opacity:0;pointer-events:none;transition:all .3s var(--e);white-space:nowrap}
 .toast.on{opacity:1;transform:translate(50%,0)}
 .wa{position:fixed;left:18px;bottom:18px;z-index:50;width:52px;height:52px;border-radius:50%;background:var(--wa);color:#fff;display:grid;place-items:center;box-shadow:0 10px 24px -10px rgba(0,0,0,.35);transition:transform .25s}
 .wa:hover{transform:translateY(-2px)}
@@ -360,7 +389,7 @@ footer .fine{border-top:1px solid var(--line);margin-top:36px;padding-top:18px;d
     <a class="logo" href="#/" aria-label="رُكن"><img src="assets/logo-navy.png" alt="رُكن"></a>
     <nav class="menu" id="menu">
       <a href="#/" data-go="best">المنتجات</a>
-      <a href="#/" data-go="top">الأكثر مبيعًا</a>
+      <a href="#/" data-go="faq">الأسئلة الشائعة</a>
       <a href="#/" data-go="coll" id="coll-nav">مجموعة سُكون</a>
       <a href="#/custom">طلب مخصص</a>
       <a href="#/" data-go="story">عن رُكن</a>
@@ -376,7 +405,7 @@ footer .fine{border-top:1px solid var(--line);margin-top:36px;padding-top:18px;d
   <nav>
     <a href="#/">الرئيسية</a>
     <a href="#/" data-go="best">كل المنتجات</a>
-    <a href="#/" data-go="top">الأكثر مبيعًا</a>
+    <a href="#/" data-go="faq">الأسئلة الشائعة</a>
     <a href="#/" data-go="coll" id="coll-nav2">مجموعة سُكون</a>
     <a href="#/custom">طلب مخصص</a>
     <a href="#/" data-go="corp">هدايا المؤسسات</a>
@@ -384,7 +413,6 @@ footer .fine{border-top:1px solid var(--line);margin-top:36px;padding-top:18px;d
   </nav>
   <div class="ft">
     <a class="walink" href="https://wa.me/97339396882" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-13.3 7.9L3 21l1.2-4.5A9 9 0 1 1 21 12z"/></svg>واتساب <span class="lat" id="wa-num">+973 3939 6882</span></a>
-    <span>د.ب | البحرين</span>
     <div class="soc"><a class="iglink" href="https://instagram.com/rokn.bh" target="_blank" rel="noopener" aria-label="إنستقرام"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a></div>
   </div>
 </div>
@@ -412,12 +440,6 @@ footer .fine{border-top:1px solid var(--line);margin-top:36px;padding-top:18px;d
     </div>
   </section>
 
-  <section class="s" id="top" style="padding-top:0">
-    <div class="wrap">
-      <div class="sh"><h2>الأكثر مبيعًا</h2><p>الأكثر طلبًا من عملائنا هذا الشهر</p></div>
-      <div class="row" id="bestrow"></div>
-    </div>
-  </section>
 
   <section class="hero" id="promo">
     <div class="hero-img"><img id="hero-img" src="assets/hero.jpg" alt="لوحة رُكن على خشب الجوز"></div>
@@ -447,6 +469,21 @@ footer .fine{border-top:1px solid var(--line);margin-top:36px;padding-top:18px;d
       <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M4 19c4-6 8-10 16-14"/><path d="M4 13c3-3 6-5 12-8"/><path d="M8 20c2-4 5-7 11-10"/></svg><div><b>خشب جوز طبيعي</b><p>لكل لوحة عروقها ولونها، فلا تتطابق قطعتان.</p></div></div>
       <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M4 8h16v12H4z"/><path d="M4 8l8-4 8 4"/><path d="M12 4v16"/></svg><div><b>تغليف هدية</b><p>علبة بشعار رُكن، جاهزة تُقدَّم كما هي.</p></div></div>
       <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="1.5"/><circle cx="17" cy="18" r="1.5"/></svg><div><b>حامل خشبي مرفق</b><p>تُعرض على الطاولة أو الرف مباشرة بدون تعليق.</p></div></div>
+    </div>
+  </section>
+
+  <section class="s" id="faq" style="padding-top:0">
+    <div class="wrap" style="max-width:720px">
+      <div class="sh"><h2>أسئلة شائعة</h2></div>
+      <div class="acc" style="margin-top:0">
+        <details><summary>ما مقاس اللوحة وكيف تُعرض؟</summary><div class="body">المقاس <span class="lat">25 × 20</span> سم تقريبًا بسماكة خشب الجوز الطبيعي، وتأتي مع حامل خشبي صغير لتُعرض على الطاولة أو الرف مباشرة دون تثبيت في الجدار.</div></details>
+        <details><summary>هل الخشب طبيعي؟ ولماذا تختلف اللوحة عن الصورة قليلًا؟</summary><div class="body">نعم، خشب جوز طبيعي بالكامل. لكل قطعة عروقها ودرجة لونها، فلا تتطابق لوحتان تمامًا — وهذا جزء من قيمتها.</div></details>
+        <details><summary>كم يستغرق التوصيل وكم تكلفته؟</summary><div class="body">اللوحات الجاهزة تُوصّل <span id="faq-days">خلال 24 ساعة</span> لكل مناطق البحرين بـ <span class="lat" id="faq-fee">1.5</span> د.ب.</div></details>
+        <details><summary>كيف أدفع؟</summary><div class="body">بالتحويل البنكي على الآيبان أو عبر بنفت‌باي (فوري+) بعد إرسال الطلب، ثم ترسل صورة الإيصال على واتساب ونؤكد لك الاستلام والموعد.</div></details>
+        <details><summary>هل أقدر أطلب آية غير الموجودة؟</summary><div class="body">نعم، من صفحة <a href="#/custom" class="link">الطلب المخصص</a>. التنفيذ من <span class="lat">5</span> إلى <span class="lat">7</span> أيام والسعر يبدأ من <span class="lat">18</span> د.ب حسب طول الآية، ونؤكده معك قبل البدء.</div></details>
+        <details><summary>هل تأتي مغلّفة كهدية؟</summary><div class="body">كل لوحة تأتي في علبة هدية بشعار رُكن جاهزة للتقديم، ويمكنك كتابة رسالة إهداء في ملاحظة الطلب لنضعها داخل العلبة.</div></details>
+        <details><summary>ما سياسة الاستبدال؟</summary><div class="body">استبدال خلال <span class="lat">3</span> أيام من الاستلام للعيوب الصناعية. التفاصيل في <a href="#/policies" class="link">سياسة الاستبدال والشروط</a>.</div></details>
+      </div>
     </div>
   </section>
 
@@ -492,6 +529,43 @@ footer .fine{border-top:1px solid var(--line);margin-top:36px;padding-top:18px;d
 </div>
 
 <div class="view" id="v-checkout"><div class="wrap co" id="co"></div></div>
+
+<div class="view" id="v-policies">
+  <section class="cust"><div class="wrap" style="max-width:720px">
+    <div class="crumb"><a href="#/">الرئيسية</a><span>/</span><span>السياسات</span></div>
+    <h1 style="font-size:clamp(26px,3vw,36px);font-weight:400;margin-bottom:8px">سياسة الاستبدال والشروط</h1>
+    <p style="color:var(--muted);margin-bottom:26px">آخر تحديث: أكتوبر <span class="lat">2026</span></p>
+    <div class="pol">
+      <h2>الاستبدال والاسترجاع</h2>
+      <ul>
+        <li>يُقبل الاستبدال خلال <span class="lat">3</span> أيام من تاريخ الاستلام في حال وجود عيب صناعي (كسر، شرخ، خطأ في النص أو الحفر).</li>
+        <li>الاختلاف البسيط في لون الخشب أو عروقه ليس عيبًا، لأن كل لوحة من خشب جوز طبيعي ولا تتطابق قطعتان.</li>
+        <li>للاستبدال، أرسل صورة اللوحة ورقم الطلب على واتساب خلال المدة، ونستلمها ونوصّل البديل دون رسوم.</li>
+        <li>الطلبات المخصصة (آية بناءً على طلب العميل) لا تُسترجع إلا لعيب صناعي، لأنها تُصنع خصيصًا.</li>
+        <li>لا يُقبل الاستبدال إذا تعرضت اللوحة لسوء استخدام أو رطوبة أو سقوط بعد الاستلام.</li>
+      </ul>
+      <h2>الطلب والدفع</h2>
+      <ul>
+        <li>يُعتبر الطلب مؤكدًا بعد استلام إيصال التحويل على واتساب وتأكيدنا له كتابيًا.</li>
+        <li>الأسعار بالدينار البحريني وتشمل التغليف. رسوم التوصيل تُضاف بشكل منفصل وتظهر قبل إتمام الطلب.</li>
+        <li>الطلب غير المدفوع خلال <span class="lat">24</span> ساعة من إرساله يُلغى تلقائيًا ويُعاد المنتج للمخزون.</li>
+      </ul>
+      <h2>التوصيل</h2>
+      <ul>
+        <li>التوصيل داخل مملكة البحرين فقط، خلال <span class="lat">24</span> ساعة من تأكيد الدفع للمنتجات الجاهزة، ومن <span class="lat">5</span> إلى <span class="lat">7</span> أيام للطلبات المخصصة.</li>
+        <li>يتواصل المندوب معك على رقم الجوال المسجل قبل الوصول. تأخير الاستلام لأكثر من <span class="lat">48</span> ساعة بعد المحاولة الثانية قد يستلزم رسوم توصيل جديدة.</li>
+      </ul>
+      <h2>الخصوصية</h2>
+      <ul>
+        <li>نجمع الاسم ورقم الجوال والعنوان (والموقع إن اخترت مشاركته) لتنفيذ الطلب فقط، ولا نشاركها مع أي جهة سوى مندوب التوصيل.</li>
+        <li>لا نحفظ أي بيانات بنكية؛ التحويل يتم من تطبيق بنكك مباشرة.</li>
+        <li>يستخدم الموقع إحصائيات زيارات مجهولة الهوية لتحسين التجربة.</li>
+      </ul>
+      <h2>التواصل</h2>
+      <p>لأي استفسار أو شكوى: واتساب <a class="walink link lat" href="https://wa.me/97339396882" target="_blank" rel="noopener">+973 3939 6882</a> أو إنستقرام <a class="iglink link lat" href="https://instagram.com/rokn.bh" target="_blank" rel="noopener">@rokn.bh</a>.</p>
+    </div>
+  </div></section>
+</div>
 </main>
 
 <footer>
@@ -499,7 +573,7 @@ footer .fine{border-top:1px solid var(--line);margin-top:36px;padding-top:18px;d
     <div class="in">
       <div><a class="logo" href="#/"><img src="assets/logo-navy.png" alt="رُكن"></a><p>لوحات آيات على خشب الجوز الطبيعي، تُصنع يدويًا في مملكة البحرين.</p></div>
       <div><h4>التسوّق</h4><ul><li><a href="#/" data-go="best">كل المنتجات</a></li><li><a href="#/" data-go="coll" id="coll-nav4">مجموعة سُكون</a></li><li><a href="#/custom">طلب مخصص</a></li><li><a href="#/" data-go="corp">هدايا المؤسسات</a></li></ul></div>
-      <div><h4>تواصل</h4><ul><li><a class="walink" href="https://wa.me/97339396882" target="_blank" rel="noopener">واتساب <span class="lat" id="wa-num2">+973 3939 6882</span></a></li><li><a class="iglink" href="https://instagram.com/rokn.bh" target="_blank" rel="noopener">إنستقرام <span class="lat" id="ig-name2">@rokn.bh</span></a></li><li>الاستبدال خلال <span class="lat">3</span> أيام للعيوب الصناعية</li></ul></div>
+      <div><h4>تواصل</h4><ul><li><a class="walink" href="https://wa.me/97339396882" target="_blank" rel="noopener">واتساب <span class="lat" id="wa-num2">+973 3939 6882</span></a></li><li><a class="iglink" href="https://instagram.com/rokn.bh" target="_blank" rel="noopener">إنستقرام <span class="lat" id="ig-name2">@rokn.bh</span></a></li><li><a href="#/policies">سياسة الاستبدال والشروط</a></li></ul></div>
     </div>
     <div class="fine"><span>© <span class="lat">2026</span> رُكن</span><span>الدفع بالتحويل البنكي · بنفت‌باي · توصيل لكل البحرين</span></div>
   </div>
@@ -535,9 +609,9 @@ try{const s=localStorage.getItem('rokn_cart');if(s)cart=JSON.parse(s);}catch(e){
 const persist=()=>{try{localStorage.setItem('rokn_cart',JSON.stringify(cart))}catch(e){}};
 const count=()=>cart.reduce((a,c)=>a+c.qty,0);
 const subtotal=()=>cart.reduce((a,c)=>a+c.qty*PIECES.find(p=>p.id===c.id).price,0);
-function add(id,qty=1){const pc=PIECES.find(x=>x.id===id);if(!pc||pc.so){toast('نفدت الكمية');return;}const c=cart.find(x=>x.id===id);if(c)c.qty+=qty;else cart.push({id,qty});persist();renderCart();track('add_to_cart',{currency:'BHD',value:pc.price*qty,items:[{item_id:id,item_name:pc.name,price:pc.price,quantity:qty}]});
+function add(id,qty=1){const pc=PIECES.find(x=>x.id===id);if(!pc||pc.so){toast('نفدت الكمية');return;}const c=cart.find(x=>x.id===id);const have=c?c.qty:0;if(pc.stock!==null&&have+qty>pc.stock){toast(pc.stock-have>0?`المتوفر ${pc.stock} فقط`:'وصلت للحد المتوفر');qty=pc.stock-have;if(qty<=0)return;}if(c)c.qty+=qty;else cart.push({id,qty});persist();renderCart();track('add_to_cart',{currency:'BHD',value:pc.price*qty,items:[{item_id:id,item_name:pc.name,price:pc.price,quantity:qty}]});
   const b=$('#cartbtn');b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump');toast('أُضيفت إلى السلة');}
-function setQty(id,q){const c=cart.find(x=>x.id===id);if(!c)return;c.qty=q;if(c.qty<=0)cart=cart.filter(x=>x.id!==id);persist();renderCart();if(location.hash.startsWith('#/checkout'))renderCheckout();}
+function setQty(id,q){const c=cart.find(x=>x.id===id);if(!c)return;const pc=PIECES.find(x=>x.id===id);if(pc&&pc.stock!==null&&q>pc.stock){toast(`المتوفر ${pc.stock} فقط`);q=pc.stock;}c.qty=q;if(c.qty<=0)cart=cart.filter(x=>x.id!==id);persist();renderCart();if(location.hash.startsWith('#/checkout'))renderCheckout();}
 function renderCart(){
   $('#cnt').textContent=count();$('#cnt').classList.toggle('z',count()===0);
   const it=$('#items'),ft=$('#dft');
@@ -587,31 +661,41 @@ $('#lbx').onclick=closeLb;$('#lb').onclick=e=>{if(e.target.id==='lb')closeLb()};
 $('#lbimg').onclick=()=>{if(lbImgs.length>1){lbI=(lbI+1)%lbImgs.length;showLb()}};
 let tx0=null;$('#lb').addEventListener('touchstart',e=>tx0=e.touches[0].clientX,{passive:true});$('#lb').addEventListener('touchend',e=>{if(tx0===null||lbImgs.length<2)return;const d=e.changedTouches[0].clientX-tx0;if(Math.abs(d)>40){lbI=(lbI+(d<0?1:-1)+lbImgs.length)%lbImgs.length;showLb()}tx0=null});
 
+/* ================= STOCK (live, via /api/stock) ================= */
+let STOCK=null;
+function applyStock(st){STOCK=st||null;PIECES.forEach(p=>{const v=STOCK&&STOCK[p.id];p.stock=(typeof v==='number')?v:null;p.so=p.available===false||(p.stock!==null&&p.stock<=0);});}
+async function loadStock(){try{const r=await fetch('/api/stock',{cache:'no-store'});if(!r.ok)return;const j=await r.json();applyStock(j.stock);}catch(e){}}
+const stockNote=p=>p.so?'':(p.stock!==null&&p.stock<=3?`<div class="stockn">متبقي <span class="lat">${p.stock}</span> فقط</div>`:'');
+
 /* ================= CONTENT ================= */
 const pct=p=>p.was&&p.was>p.price?Math.round((p.was-p.price)/p.was*100):0;
 const priceHtml=p=>`<div class="price">${pct(p)?`<s>${fmt(p.was)}</s>`:''}<b class="${pct(p)?'':'reg'}">${fmt(p.price)}</b></div>`;
 
 function applySite(){
   WA=SITE.whatsapp;IBAN=SITE.iban;BANK=SITE.bank;DELIVERY=+SITE.delivery_fee||0;
-  PIECES=PIECES.map(p=>({...p,img:[p.image1,p.image2,p.image3,p.image4,p.image5].filter(Boolean),so:p.available===false}));
+  PIECES=PIECES.map(p=>({...p,img:[p.image1,p.image2,p.image3,p.image4,p.image5].filter(Boolean),so:p.available===false,stock:null}));
   const t=(sel,v)=>$$(sel).forEach(e=>e.textContent=v);
   
   t('#hero-title',SITE.hero_title);t('#hero-text',SITE.hero_text);$('#hero-img').src=SITE.hero_image;
   t('#coll-title',SITE.collection_title);t('#coll-text',SITE.collection_text);$('#coll-img').src=SITE.collection_image;t('#coll-nav',SITE.collection_title);t('#coll-nav2',SITE.collection_title);t('#coll-nav3',SITE.collection_title);t('#coll-nav4',SITE.collection_title);
   t('#story-title',SITE.story_title);t('#story-text',SITE.story_text);t('#story-quote',SITE.story_quote);
-  $('#custom-img').src=SITE.custom_image;t('#custom-from',SITE.custom_from_price);
+  $('#custom-img').src=SITE.custom_image;t('#custom-from',SITE.custom_from_price);t('#faq-days',SITE.delivery_days);t('#faq-fee',DELIVERY);
   
   $$('a.walink').forEach(a=>{a.href=a.href.replace(/wa\.me\/\d+/,'wa.me/'+WA);a.addEventListener('click',()=>track('contact_whatsapp'))});
   t('#wa-num','+'+WA.replace(/^(\d{3})(\d{4})(\d{4})$/,'$1 $2 $3'));t('#wa-num2','+'+WA.replace(/^(\d{3})(\d{4})(\d{4})$/,'$1 $2 $3'));
   $$('a.iglink').forEach(a=>a.href='https://instagram.com/'+SITE.instagram);t('#ig-name','@'+SITE.instagram);t('#ig-name2','@'+SITE.instagram);
 }
-function renderHome(){
 const cardHtml=p=>`<div class="card ${p.so?'so':''}">
   <a class="ph" href="#/piece/${p.id}">${p.so?'<span class="pill so">نفدت الكمية</span>':pct(p)?`<span class="pill">خصم <span class="lat">${pct(p)}%</span></span>`:p.badge?`<span class="pill tag">${p.badge}</span>`:''}<img src="${p.img[0]}" alt="${p.name}" loading="lazy" ${pos(p,0)}>${p.img[1]?`<img class="b" src="${p.img[1]}" alt="" loading="lazy" ${pos(p,1)}>`:''}</a>
-  <div class="body"><a class="nm" href="#/piece/${p.id}">${p.name}</a><div class="ay">${p.ayah}</div>${priceHtml(p)}
+  <div class="body"><a class="nm" href="#/piece/${p.id}">${p.name}</a><div class="ay">${p.ayah}</div>${priceHtml(p)}${stockNote(p)}
   <button class="btn btn-o" onclick="add('${p.id}')" ${p.so?'disabled':''}>${p.so?'نفدت الكمية':'أضف للسلة'}</button></div></div>`;
+const collCardHtml=()=>{const av=PIECES.filter(p=>!p.so);const sum=av.reduce((a,p)=>a+p.price,0);if(av.length<2)return '';return `<div class="card coll-card">
+  <a class="ph" href="#/" data-go="coll"><span class="pill tag">المجموعة كاملة</span><img src="${SITE.collection_image}" alt="مجموعة سُكون" loading="lazy" style="object-position:center 50%"></a>
+  <div class="body"><a class="nm" href="#/" data-go="coll">${SITE.collection_title}</a><div class="ay">${av.length} لوحات · ${av.map(p=>p.name.replace('لوحة ','')).join('، ')}</div><div class="price"><b class="reg">${fmt(sum)}</b></div>
+  <button class="btn btn-o" onclick="addAll()">أضف المجموعة</button></div></div>`};
+function renderHome(){
 $('#gallery').innerHTML=PIECES.map(cardHtml).join('');
-$('#bestrow').innerHTML=[...PIECES].sort((a,b)=>(b.badge?1:0)-(a.badge?1:0)).slice(0,4).map(cardHtml).join('');
+$('#gallery').insertAdjacentHTML('beforeend',collCardHtml());
 $('#colllist').innerHTML=PIECES.filter(p=>!p.so).map(p=>`<div><span class="ay">${p.ayah}</span><span>${fmt(p.price)}</span></div>`).join('');
   const av=PIECES.filter(p=>!p.so);const sum=av.reduce((a,p)=>a+p.price,0),sumWas=av.reduce((a,p)=>a+(p.was||p.price),0);
   $('#coll-price').innerHTML=(sumWas>sum?`<s>${fmt(sumWas)}</s>`:'')+`<b class="${sumWas>sum?'':'reg'}">${fmt(sum)}</b>`;
@@ -642,22 +726,23 @@ function renderPiece(id){
         <button class="btn btn-o btn-block" id="addbtn" ${p.so?'disabled':''}>${p.so?'نفدت الكمية':'أضف إلى السلة'}</button>
         <button class="btn btn-p btn-block" id="buybtn" ${p.so?'disabled':''}>اشترِ الآن</button>
       </div>
-      <div class="stock"><i style="${p.so?'background:#B5442C':''}"></i>${p.so?'غير متوفرة حاليًا — تواصل معنا على واتساب للحجز':'متوفرة — جاهزة للتسليم'}</div>
+      <div class="stock"><i style="${p.so?'background:#B5442C':''}"></i>${p.so?'غير متوفرة حاليًا — تواصل معنا على واتساب للحجز':(p.stock!==null&&p.stock<=3?`متبقي <span class="lat">${p.stock}</span> فقط — جاهزة للتسليم`:'متوفرة — جاهزة للتسليم')}</div>
       <p class="desc">${p.desc}</p>
       <div class="acc">
         <details open><summary>المواصفات</summary><div class="body"><div><span>الخامة</span><span>خشب جوز طبيعي</span></div><div><span>المقاس</span><span><span class="lat">25 × 20</span> سم تقريبًا</span></div><div><span>التثبيت</span><span>حامل خشبي للطاولة</span></div><div><span>التغليف</span><span>علبة هدية بشعار رُكن</span></div></div></details>
         <details><summary>التوصيل والدفع</summary><div class="body">توصيل لكل البحرين بـ <span class="lat">${DELIVERY}</span> د.ب ${SITE.delivery_days}. الدفع بالتحويل البنكي أو بنفت‌باي بعد تأكيد الطلب على واتساب.</div></details>
-        <details><summary>الاستبدال</summary><div class="body">لأن الخشب طبيعي، لكل لوحة عروقها ودرجة لونها وقد تختلف قليلًا عن الصورة. الاستبدال خلال <span class="lat">3</span> أيام من الاستلام للعيوب الصناعية.</div></details>
+        <details><summary>الاستبدال</summary><div class="body">لأن الخشب طبيعي، لكل لوحة عروقها ودرجة لونها وقد تختلف قليلًا عن الصورة. الاستبدال خلال <span class="lat">3</span> أيام من الاستلام للعيوب الصناعية. <a href="#/policies" class="link">التفاصيل</a></div></details>
       </div>
     </div>
-  </div>`;
+  </div>
+  <section class="s related" style="padding-bottom:0"><div class="sh"><h2>قد يعجبك أيضًا</h2></div><div class="grid">${PIECES.filter(x=>x.id!==p.id).map(cardHtml).join('')}${collCardHtml()}</div></section>`;
   box.querySelector('#pmain').onclick=()=>openLb(p.img,img);
   document.title=`${p.name} — رُكن`;
   const sb=$('#sbar');sb.innerHTML=`<div class="p">${fmt(p.price)}<small>${p.name}</small></div><button class="btn btn-p" ${p.so?'disabled':''}>${p.so?'نفدت الكمية':'أضف إلى السلة'}</button>`;
   sb.querySelector('button').onclick=()=>{add(p.id,qty);setTimeout(openDrawer,250)};
-  const buy=box.querySelector('.buy');const sio=new IntersectionObserver(es=>{const vis=es[0].isIntersecting||es[0].boundingClientRect.top>innerHeight;sb.classList.toggle('on',!vis);$('.wa').classList.toggle('lift',!vis&&location.hash.startsWith('#/piece/'))},{threshold:0});sio.observe(buy);
+  const buy=box.querySelector('.buy');if(window.sio)window.sio.disconnect();window.sio=new IntersectionObserver(es=>{const vis=es[0].isIntersecting||es[0].boundingClientRect.top>innerHeight;sb.classList.toggle('on',!vis);$('.wa').classList.toggle('lift',!vis&&location.hash.startsWith('#/piece/'))},{threshold:0});window.sio.observe(buy);
   box.querySelector('#qm').onclick=()=>{qty=Math.max(1,qty-1);box.querySelector('#qo').textContent=qty};
-  box.querySelector('#qp').onclick=()=>{qty=Math.min(10,qty+1);box.querySelector('#qo').textContent=qty};
+  box.querySelector('#qp').onclick=()=>{const mx=p.stock!==null?Math.max(1,p.stock):10;if(qty>=mx){toast('هذا أقصى عدد متوفر');return;}qty=Math.min(mx,qty+1);box.querySelector('#qo').textContent=qty};
   box.querySelector('#addbtn').onclick=()=>{add(p.id,qty);setTimeout(openDrawer,250)};
   box.querySelector('#buybtn').onclick=()=>{add(p.id,qty);setTimeout(()=>{closeDrawer();go('#/checkout')},150)};
   box.querySelectorAll('.thumbs button').forEach(b=>b.onclick=()=>{img=+b.dataset.i;box.querySelectorAll('.main img').forEach((m,i)=>m.classList.toggle('on',i===img));box.querySelectorAll('.thumbs button').forEach((x,i)=>x.classList.toggle('on',i===img))});
@@ -673,6 +758,10 @@ function renderCheckout(){
   const total=subtotal()+DELIVERY;
   track('begin_checkout',{currency:'BHD',value:total,items:cart.map(c=>{const p=PIECES.find(x=>x.id===c.id);return {item_id:p.id,item_name:p.name,price:p.price,quantity:c.qty}})});
   box.innerHTML=`<div class="crumb"><a href="#/">الرئيسية</a><span>/</span><span>إتمام الطلب</span></div>
+  <details class="sumtop"><summary><span>ملخص الطلب · <span class="lat">${count()}</span> ${count()>1?'قطع':'قطعة'}</span><b>${fmt(total)}</b></summary>
+    <div class="sumbody">${cart.map(c=>{const p=PIECES.find(x=>x.id===c.id);return`<div class="li"><img src="${p.img[0]}" alt="" ${pos(p,0)}><span>${p.name}<small>الكمية: <span class="lat">${c.qty}</span></small></span><span>${fmt(p.price*c.qty)}</span></div>`}).join('')}
+    <div class="tot"><span>المجموع</span><span>${fmt(subtotal())}</span></div><div class="tot"><span>التوصيل (${SITE.delivery_days})</span><span>${fmt(DELIVERY)}</span></div><button class="copy" style="margin-top:8px" onclick="openDrawer()">تعديل السلة</button></div>
+  </details>
   <div class="g">
     <div>
       <h2>بيانات التوصيل</h2>
@@ -692,12 +781,21 @@ function renderCheckout(){
         <div class="f"><label>ملاحظة (اختياري)</label><input id="o-note" value="${esc(order.note)}" placeholder="وقت مناسب للتوصيل"></div>
       </form>
       <h2 style="margin-top:32px">الدفع</h2>
-      <div class="sub">تحويل بنكي على الآيبان من تطبيق بنكك أو بنفت‌باي (فوري+)، ثم أرسل الطلب على واتساب مع صورة الإيصال.</div>
+      <div class="sub">حوّل المبلغ بإحدى الطريقتين، ثم أرسل الطلب على واتساب مع صورة الإيصال.</div>
       <div class="pay">
         <div class="row"><span>المبلغ المطلوب</span><span class="amt">${fmt(total)}</span></div>
-        <div class="bnum" id="bnum">${IBAN}</div>
-        <div class="row" style="font-size:13px;color:var(--muted)"><span>${BANK} · المستفيد: <b class="lat" style="color:var(--ink);font-weight:500">${SITE.beneficiary}</b></span><button type="button" class="copy" id="copyb">نسخ الآيبان</button></div>
-        <ol style="margin-top:10px"><li>من تطبيق بنكك أو بنفت‌باي اختر «تحويل» (فوري+).</li><li>الصق الآيبان وأدخل المبلغ <span class="lat">${total}</span> د.ب.</li><li>اضغط «أرسل الطلب» وأرفق صورة الإيصال في المحادثة.</li></ol>
+        <div class="paytabs"><button type="button" class="on" data-t="qr">مسح QR — بنفت‌باي</button><button type="button" data-t="iban">نسخ الآيبان</button></div>
+        <div class="paypane" id="pay-qr">
+          <div class="qrbox"><img src="assets/benefit-qr.png" alt="رمز بنفت‌باي لحساب رُكن" width="200" height="200"></div>
+          <ol><li>افتح بنفت‌باي ← <b>مسح QR</b>، وامسح الرمز من شاشة ثانية.</li><li>من نفس الجوال: احفظ الصورة بالزر أدناه، ثم في المسح اختر <b>الصور</b>.</li><li>أدخل المبلغ <span class="lat">${total}</span> د.ب وأكمل التحويل.</li></ol>
+          <a class="btn btn-o btn-block" href="assets/benefit-qr.png" download="rokn-benefitpay.png">حفظ رمز QR</a>
+        </div>
+        <div class="paypane" id="pay-iban" hidden>
+          <div class="bnum" id="bnum">${IBAN}</div>
+          <div class="row" style="font-size:13px;color:var(--muted)"><span>${BANK} · المستفيد: <b class="lat" style="color:var(--ink);font-weight:500">${SITE.beneficiary}</b></span><button type="button" class="copy" id="copyb">نسخ الآيبان</button></div>
+          <ol style="margin-top:10px"><li>من تطبيق بنكك أو بنفت‌باي اختر «تحويل» (فوري+).</li><li>الصق الآيبان وأدخل المبلغ <span class="lat">${total}</span> د.ب.</li></ol>
+        </div>
+        <div class="muted" style="font-size:13px;margin-top:10px;color:var(--muted)">بعد التحويل اضغط «أرسل الطلب» وأرفق صورة الإيصال في المحادثة.</div>
       </div>
       <button class="btn btn-wa btn-block" style="margin-top:16px;min-height:50px" id="sendbtn">أرسل الطلب عبر واتساب</button>
       <div class="notice">يفتح واتساب برسالة جاهزة فيها تفاصيل طلبك وعنوانك. نؤكد الاستلام والموعد في نفس المحادثة.</div>
@@ -709,13 +807,21 @@ function renderCheckout(){
     </div>
   </div>`;
   const read=()=>{order.name=$('#o-name').value.trim();order.phone=$('#o-phone').value.trim();order.area=$('#o-area').value.trim();order.block=$('#o-block').value.trim();order.road=$('#o-road').value.trim();order.house=$('#o-house').value.trim();order.note=$('#o-note').value.trim();};
+  $$('.paytabs button').forEach(b=>b.onclick=()=>{$$('.paytabs button').forEach(x=>x.classList.toggle('on',x===b));$('#pay-qr').hidden=b.dataset.t!=='qr';$('#pay-iban').hidden=b.dataset.t!=='iban';track('select_payment',{method:b.dataset.t})});
   $('#copyb').onclick=async()=>{try{await navigator.clipboard.writeText(IBAN);toast('نُسخ الآيبان')}catch(e){toast(IBAN)}};
   $('#locbtn').onclick=()=>{const b=$('#locbtn');if(!navigator.geolocation){toast('المتصفح لا يدعم تحديد الموقع');return;}b.innerHTML=PIN+'<span>جارٍ التحديد…</span>';
     navigator.geolocation.getCurrentPosition(pos=>{order.loc=`https://maps.google.com/?q=${pos.coords.latitude.toFixed(6)},${pos.coords.longitude.toFixed(6)}`;b.classList.add('ok');b.innerHTML=PIN+'<span>تم تحديد موقعك على الخريطة ✓</span>'},()=>{b.innerHTML=PIN+'<span>شارك موقعي الحالي من خرائط قوقل (اختياري)</span>';toast('تعذّر تحديد الموقع — اكتب العنوان فقط')},{enableHighAccuracy:true,timeout:10000});};
-  $('#sendbtn').onclick=()=>{read();let ok=true;[['#o-name',order.name],['#o-phone',order.phone.replace(/\D/g,'').length>=8],['#o-area',order.area],['#o-block',order.block],['#o-road',order.road],['#o-house',order.house]].forEach(([s,v])=>{const f=$(s).closest('.f');f.classList.toggle('err',!v);if(!v)ok=false});
+  $('#sendbtn').onclick=async()=>{read();let ok=true;[['#o-name',order.name],['#o-phone',order.phone.replace(/\D/g,'').length>=8],['#o-area',order.area],['#o-block',order.block],['#o-road',order.road],['#o-house',order.house]].forEach(([s,v])=>{const f=$(s).closest('.f');f.classList.toggle('err',!v);if(!v)ok=false});
     if(!ok){toast('أكمل الحقول المطلوبة (*)');$('.f.err input').focus();return;}
+    const sb_=$('#sendbtn');sb_.disabled=true;sb_.textContent='جارٍ تأكيد التوفر…';
     const ref='RK-'+new Date().toISOString().slice(2,10).replace(/-/g,'')+'-'+Math.floor(100+Math.random()*900);
     const lines=[`طلب جديد من موقع رُكن — ${ref}`,'',...cart.map(c=>{const p=PIECES.find(x=>x.id===c.id);return`• ${p.name} × ${c.qty} — ${p.price*c.qty} د.ب`}),`التوصيل: ${DELIVERY} د.ب`,`الإجمالي: ${total} د.ب`,'',`الاسم: ${order.name}`,`الجوال: ${order.phone}`,`العنوان: ${addrText()}`,order.loc?`الموقع: ${order.loc}`:null,order.note?`ملاحظة: ${order.note}`:null,'',`الدفع: تحويل بنكي على الآيبان — سأرفق صورة الإيصال ✅`].filter(x=>x!==null);
+    try{const rr=await fetch('/api/stock',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'reserve',ref,items:cart.map(c=>({id:c.id,qty:c.qty})),customer:{name:order.name,phone:order.phone},total})});
+      if(rr.ok){const j=await rr.json();if(j.ok===false){applyStock(j.stock);renderHome();renderCart();sb_.disabled=false;sb_.textContent='أرسل الطلب عبر واتساب';
+          const names=j.short.map(x=>{const p=PIECES.find(y=>y.id===x.id);return `${p?p.name:x.id} (المتوفر ${x.available})`}).join('، ');toast('الكمية غير متوفرة: '+names);cart.forEach(c=>{const sh=j.short.find(x=>x.id===c.id);if(sh)c.qty=Math.max(0,sh.available)});cart=cart.filter(c=>c.qty>0);persist();renderCart();renderCheckout();return;}
+          else if(j.stock)applyStock(j.stock);}
+    }catch(e){}
+    sb_.disabled=false;sb_.textContent='أرسل الطلب عبر واتساب';
     track('purchase',{transaction_id:ref,currency:'BHD',value:total,shipping:DELIVERY,items:cart.map(c=>{const p=PIECES.find(x=>x.id===c.id);return {item_id:p.id,item_name:p.name,price:p.price,quantity:c.qty}})});
     notify('order',{ref,name:order.name,phone:order.phone,address:addrText(),location:order.loc||'',note:order.note||'',items:cart.map(c=>{const p=PIECES.find(x=>x.id===c.id);return `${p.name} × ${c.qty}`}).join(' | '),total:total+' BHD'});
     window.open(`https://wa.me/${WA}?text=${encodeURIComponent(lines.join('\n'))}`,'_blank');
@@ -739,11 +845,12 @@ $('#cform').onsubmit=e=>{e.preventDefault();const t=$('#c-text').value.trim(),n=
 /* ================= ROUTER ================= */
 function show(id){$$('.view').forEach(v=>v.classList.toggle('on',v.id===id))}
 function route(){
-  const h=location.hash||'#/';closeDrawer();$('#mm').classList.remove('open');$('#sbar').classList.remove('on');$('.wa').classList.remove('lift');
-  document.title=h==='#/custom'?'طلب مخصص — رُكن':h==='#/checkout'?'إتمام الطلب — رُكن':'رُكن — لوحات آيات على خشب الجوز';
+  const h=location.hash||'#/';closeDrawer();$('#mm').classList.remove('open');if(window.sio){window.sio.disconnect();window.sio=null}$('#sbar').classList.remove('on');$('.wa').classList.remove('lift');
+  document.title=h==='#/custom'?'طلب مخصص — رُكن':h==='#/checkout'?'إتمام الطلب — رُكن':h==='#/policies'?'السياسات — رُكن':'رُكن — لوحات آيات على خشب الجوز';
   if(h.startsWith('#/piece/')){renderPiece(h.split('/')[2]);show('v-piece');window.scrollTo(0,0)}
   else if(h==='#/custom'){show('v-custom');window.scrollTo(0,0)}
   else if(h==='#/checkout'){renderCheckout();show('v-checkout');window.scrollTo(0,0)}
+  else if(h==='#/policies'){show('v-policies');window.scrollTo(0,0)}
   else{show('v-home');}
   $$('.menu a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')===h&&!a.dataset.go));
 }
@@ -756,7 +863,7 @@ window.addEventListener('hashchange',route);
 (async()=>{
   try{const [a,b]=await Promise.all([fetch('content/site.json',{cache:'no-store'}),fetch('content/products.json',{cache:'no-store'})]);
     if(a.ok&&b.ok){SITE={...SITE,...await a.json()};const pj=await b.json();if(pj.items&&pj.items.length)PIECES=pj.items;}}catch(e){}
-  applySite();loadAnalytics();renderHome();route();renderCart();
+  applySite();loadAnalytics();await loadStock();renderHome();route();renderCart();
 })();
 $('#burger').onclick=()=>$('#mm').classList.add('open');$('#mmx').onclick=()=>$('#mm').classList.remove('open');
 window.addEventListener('scroll',()=>$('#hdr').classList.toggle('scrolled',scrollY>10),{passive:true});
