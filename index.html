@@ -126,7 +126,7 @@ section.s{padding:64px 0}
 .more{text-align:center;margin-top:28px}
 
 /* product grid */
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 @media(max-width:749px){.grid{grid-template-columns:1fr 1fr;gap:12px}}
 .card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--rc);overflow:hidden;transition:box-shadow .25s,transform .25s}
 .card:hover{box-shadow:0 16px 34px -26px rgba(0,0,0,.35);transform:translateY(-2px)}
@@ -161,7 +161,12 @@ section.s{padding:64px 0}
 /* stock */
 .stockn{font-size:12.5px;color:#B4452E;font-weight:500;margin-top:4px}
 /* related */
-.related .grid{grid-template-columns:repeat(3,1fr)}
+.related .grid{grid-template-columns:repeat(4,1fr)}
+.card.coll-card.wide{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+.card.coll-card.wide .ph{aspect-ratio:1/1}
+.card.coll-card.wide .body{justify-content:center;padding:16px 18px}
+.card.coll-card.wide .ay{display:block}
+@media(min-width:750px){.card.coll-card.wide{grid-template-columns:minmax(0,1fr) minmax(0,3fr)}.card.coll-card.wide .body{padding:24px 32px}.card.coll-card.wide .nm{font-size:18px}.card.coll-card.wide .ay{font-family:var(--f);font-size:14px}.card.coll-card.wide .btn{width:auto;align-self:flex-start;padding:0 32px}}
 @media(max-width:749px){.related .grid{display:flex;overflow-x:auto;gap:12px;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:6px;margin:0 -16px;padding-inline:16px}.related .grid::-webkit-scrollbar{display:none}.related .card{flex:0 0 62%;scroll-snap-align:start}}
 /* image with text */
 .iwt{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:var(--rc);overflow:hidden}
@@ -457,7 +462,7 @@ footer .fine{border-top:1px solid var(--line);margin-top:36px;padding-top:18px;d
       <div class="tx">
         <div class="eyebrow">المجموعة الأولى</div>
         <h2 id="coll-title">مجموعة سُكون</h2>
-        <p id="coll-text">لوحات صُنِعت من الخشب الطبيعي لتسكن المكان، لا لتزاحمه. ثلاث آيات تكمل بعضها: للبيت، وللسعي، وللرضا — تُقتنى معًا أو تُهدى مجموعة كاملة.</p>
+        <p id="coll-text">لوحات صُنِعت من الخشب الطبيعي لتسكن المكان، لا لتزاحمه. أربع آيات تكمل بعضها: للبيت، وللسعي، وللرضا، وللصبر — تُقتنى معًا أو تُهدى مجموعة كاملة.</p>
         <div class="list" id="colllist"></div>
         <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><button class="btn btn-p" onclick="addAll()">أضف المجموعة إلى السلة</button><span class="price" style="margin:0" id="coll-price"></span></div>
       </div>
@@ -596,8 +601,8 @@ footer .fine{border-top:1px solid var(--line);margin-top:36px;padding-top:18px;d
 
 
 /* ================= DATA (defaults; overridden by content/*.json when hosted) ================= */
-let SITE={"hero_title": "نملأ كل ركنٍ بذكرياتٍ جميلة", "hero_text": "قطع صُنعت يدويًا في البحرين، بتغليف هدية جاهز.", "hero_image": "assets/hero.jpg", "collection_title": "مجموعة سُكون", "collection_text": "لوحات صُنِعت من الخشب الطبيعي لتسكن المكان، لا لتزاحمه. ثلاث آيات تكمل بعضها: للبيت، وللسعي، وللرضا — تُقتنى معًا أو تُهدى مجموعة كاملة.", "collection_image": "assets/collection.jpg", "story_title": "عن رُكن", "story_text": "«رُكن» تعني الزاوية والسند. بدأنا من فكرة بسيطة: أن تكون للآية زاويةٌ في البيت تُرى كل يوم. نختار خشب الجوز لأنه لا يشبه غيره، ونُبقي التصميم هادئًا ليكون الحضور كله للكلمة.", "story_quote": "نملأ كل ركنٍ بذكرياتٍ جميلة.", "custom_image": "assets/custom.jpg", "whatsapp": "97339396882", "instagram": "rokn.bh", "iban": "BH39ALSA00802695150000", "bank": "بنك السلام", "beneficiary": "Rokn", "delivery_fee": 1.5, "delivery_days": "خلال 24 ساعة", "custom_from_price": 18, "ga_id": "G-KH6MJ230MV", "clarity_id": ""};
-let PIECES={"items": [{"id": "manzil", "name": "لوحة منزلاً", "ayah": "﴿وَقُل رَّبِّ أَنزِلْنِي مُنزَلًا مُّبَارَكًا وَأَنتَ خَيْرُ الْمُنزِلِينَ﴾", "ref": "المؤمنون · 29", "price": 18, "was": null, "badge": "الأكثر طلبًا", "available": true, "desc": "هذه اللوحة ليست مجرد لوحة،\nبل تذكيرٌ يوميّ بأن نسأل الله دائمًا:\nأن يُنزلنا حيث البركة،\nوأن يجعل كل بدايةٍ لنا مغمورةً بعنايته.\n\nكولكشن سُكون من رُكن — حيث يسكن المعنى قبل المكان.\nصُنعت من خشب الجوز الطبيعي، بمقاس 20×25 سم.", "image1": "assets/manzil-0.jpg", "image2": "assets/manzil-3.jpg", "image3": "assets/manzil-4.jpg", "image4": "assets/manzil-1.jpg", "image5": "assets/manzil-2.jpg"}, {"id": "saay", "name": "لوحة السعي", "ayah": "﴿وَأَن لَّيْسَ لِلْإِنسَانِ إِلَّا مَا سَعَىٰ﴾", "ref": "النجم · 39", "price": 18, "was": null, "badge": "", "available": true, "desc": "ليست كل خطوة تُرى، ولا كل سعيٍ يُحكى،\nلكن الله يرى التعب،\nويعلم كم من الأمنيات بدأت بخطوة صغيرة،\nوكم من الوصول كان خلفه سعيٌ طويل.\n\nفاسعَ، وثق؛ فما كُتب لك سيأتيك، وما عند الله لا يضيع 🤍\n\nكولكشن سُكون من رُكن — لوحات صُنِعت من الخشب الطبيعي لتسكن المكان، لا لتزاحمه.\nخشب جوز طبيعي، بمقاس 20×25 سم.", "image1": "assets/saay-0.jpg", "image2": "assets/saay-3.jpg", "image3": "assets/saay-4.jpg", "image4": "assets/saay-1.jpg", "image5": "assets/saay-2.jpg"}, {"id": "farihin", "name": "لوحة فرحين", "ayah": "﴿فَرِحِينَ بِمَا آتَاهُمُ اللَّهُ مِن فَضْلِهِ﴾", "ref": "آل عمران · 170", "price": 18, "was": null, "badge": "", "available": true, "desc": "ليست لحظة عابرة،\nبل سكينة تمتدّ وتبقى حيث استقرّ الرضا.\nيأتيك خفيفًا، لكنه يملأ كل شيء،\nحين تدرك أن الفضل كان حاضرًا منذ البداية.\n\nكولكشن سُكون من رُكن — لوحات صُنِعت من الخشب الطبيعي لتسكن المكان، لا لتزاحمه.\nخشب جوز طبيعي، بمقاس 20×25 سم.", "image1": "assets/farihin-0.jpg", "image2": "assets/farihin-3.jpg", "image3": "assets/farihin-4.jpg", "image4": "assets/farihin-1.jpg", "image5": "assets/farihin-2.jpg"}]}.items;
+let SITE={"hero_title": "نملأ كل ركنٍ بذكرياتٍ جميلة", "hero_text": "قطع صُنعت يدويًا في البحرين، بتغليف هدية جاهز.", "hero_image": "assets/hero.jpg", "collection_title": "مجموعة سُكون", "collection_text": "لوحات صُنِعت من الخشب الطبيعي لتسكن المكان، لا لتزاحمه. أربع آيات تكمل بعضها: للبيت، وللسعي، وللرضا، وللصبر — تُقتنى معًا أو تُهدى مجموعة كاملة.", "collection_image": "assets/collection.jpg", "story_title": "عن رُكن", "story_text": "«رُكن» تعني الزاوية والسند. بدأنا من فكرة بسيطة: أن تكون للآية زاويةٌ في البيت تُرى كل يوم. نختار خشب الجوز لأنه لا يشبه غيره، ونُبقي التصميم هادئًا ليكون الحضور كله للكلمة.", "story_quote": "نملأ كل ركنٍ بذكرياتٍ جميلة.", "custom_image": "assets/custom.jpg", "whatsapp": "97339396882", "instagram": "rokn.bh", "iban": "BH39ALSA00802695150000", "bank": "بنك السلام", "beneficiary": "Rokn", "delivery_fee": 1.5, "delivery_days": "خلال 24 ساعة", "custom_from_price": 18, "ga_id": "G-KH6MJ230MV", "clarity_id": ""};
+let PIECES={"items": [{"id": "manzil", "name": "لوحة منزلاً", "ayah": "﴿وَقُل رَّبِّ أَنزِلْنِي مُنزَلًا مُّبَارَكًا وَأَنتَ خَيْرُ الْمُنزِلِينَ﴾", "ref": "المؤمنون · 29", "price": 18, "was": null, "badge": "الأكثر طلبًا", "available": true, "desc": "هذه اللوحة ليست مجرد لوحة،\nبل تذكيرٌ يوميّ بأن نسأل الله دائمًا:\nأن يُنزلنا حيث البركة،\nوأن يجعل كل بدايةٍ لنا مغمورةً بعنايته.\n\nكولكشن سُكون من رُكن — حيث يسكن المعنى قبل المكان.\nصُنعت من خشب الجوز الطبيعي، بمقاس 20×25 سم.", "image1": "assets/manzil-0.jpg", "image2": "assets/manzil-3.jpg", "image3": "assets/manzil-4.jpg", "image4": "assets/manzil-1.jpg", "image5": "assets/manzil-2.jpg"}, {"id": "saay", "name": "لوحة السعي", "ayah": "﴿وَأَن لَّيْسَ لِلْإِنسَانِ إِلَّا مَا سَعَىٰ﴾", "ref": "النجم · 39", "price": 18, "was": null, "badge": "", "available": true, "desc": "ليست كل خطوة تُرى، ولا كل سعيٍ يُحكى،\nلكن الله يرى التعب،\nويعلم كم من الأمنيات بدأت بخطوة صغيرة،\nوكم من الوصول كان خلفه سعيٌ طويل.\n\nفاسعَ، وثق؛ فما كُتب لك سيأتيك، وما عند الله لا يضيع 🤍\n\nكولكشن سُكون من رُكن — لوحات صُنِعت من الخشب الطبيعي لتسكن المكان، لا لتزاحمه.\nخشب جوز طبيعي، بمقاس 20×25 سم.", "image1": "assets/saay-0.jpg", "image2": "assets/saay-3.jpg", "image3": "assets/saay-4.jpg", "image4": "assets/saay-1.jpg", "image5": "assets/saay-2.jpg"}, {"id": "farihin", "name": "لوحة فرحين", "ayah": "﴿فَرِحِينَ بِمَا آتَاهُمُ اللَّهُ مِن فَضْلِهِ﴾", "ref": "آل عمران · 170", "price": 18, "was": null, "badge": "", "available": true, "desc": "ليست لحظة عابرة،\nبل سكينة تمتدّ وتبقى حيث استقرّ الرضا.\nيأتيك خفيفًا، لكنه يملأ كل شيء،\nحين تدرك أن الفضل كان حاضرًا منذ البداية.\n\nكولكشن سُكون من رُكن — لوحات صُنِعت من الخشب الطبيعي لتسكن المكان، لا لتزاحمه.\nخشب جوز طبيعي، بمقاس 20×25 سم.", "image1": "assets/farihin-0.jpg", "image2": "assets/farihin-3.jpg", "image3": "assets/farihin-4.jpg", "image4": "assets/farihin-1.jpg", "image5": "assets/farihin-2.jpg"}, {"id": "sabr", "name": "لوحة صبرٌ جميل", "ayah": "﴿فَصَبْرٌ جَمِيلٌ ۖ وَاللَّهُ الْمُسْتَعَانُ عَلَىٰ مَا تَصِفُونَ﴾", "ref": "يوسف · 18", "price": 18, "was": null, "badge": "جديد", "available": true, "desc": "صبرٌ لا شكوى فيه إلا لله،\nيهدأ به القلب وإن طال الانتظار،\nويطمئن لأن الله هو المستعان\nعلى كل ما ضاق به الصدر، وعجز عنه الكلام.\n\nكولكشن سُكون من رُكن — لوحات صُنِعت من الخشب الطبيعي لتسكن المكان، لا لتزاحمه.\nخشب جوز طبيعي، بمقاس 20×25 سم.", "image1": "assets/sabr-0.jpg", "image2": "assets/sabr-1.jpg", "image3": "assets/sabr-2.jpg"}]}.items;
 let WA,IBAN,BANK,DELIVERY;
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const fmt=n=>`<span class="num">${String(Math.round(Number(n)*1000)/1000)}</span> د.ب`;
@@ -689,13 +694,13 @@ const cardHtml=p=>`<div class="card ${p.so?'so':''}">
   <a class="ph" href="#/piece/${p.id}">${p.so?'<span class="pill so">نفدت الكمية</span>':pct(p)?`<span class="pill">خصم <span class="lat">${pct(p)}%</span></span>`:p.badge?`<span class="pill tag">${p.badge}</span>`:''}<img src="${p.img[0]}" alt="${p.name}" loading="lazy" ${pos(p,0)}>${p.img[1]?`<img class="b" src="${p.img[1]}" alt="" loading="lazy" ${pos(p,1)}>`:''}</a>
   <div class="body"><a class="nm" href="#/piece/${p.id}">${p.name}</a><div class="ay">${p.ayah}</div>${priceHtml(p)}${stockNote(p)}
   <button class="btn btn-o" onclick="add('${p.id}')" ${p.so?'disabled':''}>${p.so?'نفدت الكمية':'أضف للسلة'}</button></div></div>`;
-const collCardHtml=()=>{const av=PIECES.filter(p=>!p.so);const sum=av.reduce((a,p)=>a+p.price,0);if(av.length<2)return '';return `<div class="card coll-card">
+const collCardHtml=(wide)=>{const av=PIECES.filter(p=>!p.so);const sum=av.reduce((a,p)=>a+p.price,0);if(av.length<2)return '';return `<div class="card coll-card${wide?' wide':''}">
   <a class="ph" href="#/" data-go="coll"><span class="pill tag">المجموعة كاملة</span><img src="${SITE.collection_image}" alt="مجموعة سُكون" loading="lazy" style="object-position:center 50%"></a>
   <div class="body"><a class="nm" href="#/" data-go="coll">${SITE.collection_title}</a><div class="ay">${av.length} لوحات · ${av.map(p=>p.name.replace('لوحة ','')).join('، ')}</div><div class="price"><b class="reg">${fmt(sum)}</b></div>
   <button class="btn btn-o" onclick="addAll()">أضف المجموعة</button></div></div>`};
 function renderHome(){
 $('#gallery').innerHTML=PIECES.map(cardHtml).join('');
-$('#gallery').insertAdjacentHTML('beforeend',collCardHtml());
+$('#gallery').insertAdjacentHTML('beforeend',collCardHtml(PIECES.length%2===0));
 $('#colllist').innerHTML=PIECES.filter(p=>!p.so).map(p=>`<div><span class="ay">${p.ayah}</span><span>${fmt(p.price)}</span></div>`).join('');
   const av=PIECES.filter(p=>!p.so);const sum=av.reduce((a,p)=>a+p.price,0),sumWas=av.reduce((a,p)=>a+(p.was||p.price),0);
   $('#coll-price').innerHTML=(sumWas>sum?`<s>${fmt(sumWas)}</s>`:'')+`<b class="${sumWas>sum?'':'reg'}">${fmt(sum)}</b>`;
