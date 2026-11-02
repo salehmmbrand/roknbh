@@ -46,7 +46,7 @@ input[type=number]{width:96px;text-align:center;direction:ltr}
 
 <div id="login" class="card">
   <p style="margin-bottom:10px">أدخل رمز الإدارة للمتابعة.</p>
-  <input id="tok" type="password" placeholder="رمز الإدارة" autocomplete="current-password">
+  <input id="tok" type="password" inputmode="numeric" placeholder="رمز الإدارة" autocomplete="current-password">
   <button class="btn" style="margin-top:12px;width:100%" id="go">دخول</button>
   <p class="muted" style="margin-top:10px">الرمز محفوظ في إعدادات Netlify باسم STOCK_ADMIN_TOKEN.</p>
 </div>
@@ -63,7 +63,7 @@ input[type=number]{width:96px;text-align:center;direction:ltr}
 <script>
 const $=s=>document.querySelector(s);
 let TOKEN=localStorage.getItem('rokn_admin')||'',PRODUCTS=[],STOCK={};
-const api=async(body)=>{const r=await fetch('/api/stock',{method:'POST',headers:{'content-type':'application/json','x-admin-token':TOKEN},body:JSON.stringify(body)});if(r.status===401)throw new Error('auth');return r.json()};
+const api=async(body)=>{const r=await fetch('/api/stock',{method:'POST',headers:{'content-type':'application/json','x-admin-token':TOKEN},body:JSON.stringify(body)});if(r.status===401){const j=await r.json().catch(()=>({}));const e=new Error('auth');e.left=j.attemptsLeft;throw e}if(r.status===429){const j=await r.json().catch(()=>({}));const e=new Error('locked');e.min=j.retryAfterMin||15;throw e}return r.json()};
 let tt;const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),1800)};
 const fmtDate=s=>new Date(s).toLocaleString('ar-BH',{dateStyle:'medium',timeStyle:'short'});
 function renderStock(){
@@ -79,7 +79,7 @@ function renderOrders(orders){
   ${o.status==='pending'?`<div style="display:flex;gap:8px;margin-top:10px"><button class="btn ok" data-a="confirm" data-ref="${o.ref}">تأكيد الدفع</button><button class="btn bad" data-a="cancel" data-ref="${o.ref}">إلغاء وإرجاع المخزون</button></div>`:o.status==='confirmed'?`<div style="margin-top:10px"><button class="btn bad" data-a="cancel" data-ref="${o.ref}">إلغاء وإرجاع المخزون</button></div>`:''}</div>`).join(''):'<p class="muted">لا توجد طلبات بعد.</p>';
   $('#orders').querySelectorAll('button[data-a]').forEach(b=>b.onclick=async()=>{if(b.dataset.a==='cancel'&&!confirm('إلغاء الطلب وإرجاع القطع للمخزون؟'))return;b.disabled=true;try{const r=await api({action:b.dataset.a,ref:b.dataset.ref});STOCK=r.stock;toast(b.dataset.a==='confirm'?'تم التأكيد':'تم الإلغاء');load()}catch(e){fail(e)}});
 }
-function fail(e){if(e.message==='auth'){localStorage.removeItem('rokn_admin');TOKEN='';show(false);toast('الرمز غير صحيح')}else toast('تعذّر الاتصال — حاول مرة أخرى')}
+function fail(e){if(e.message==='auth'||e.message==='locked'){localStorage.removeItem('rokn_admin');TOKEN='';show(false);toast(e.message==='locked'?`محاولات كثيرة — حاول بعد ${e.min} دقيقة`:(e.left>0?`الرمز غير صحيح — باقي ${e.left} محاولات`:'الرمز غير صحيح'))}else toast('تعذّر الاتصال — حاول مرة أخرى')}
 function show(on){$('#login').classList.toggle('hid',on);$('#app').classList.toggle('hid',!on);$('#logout').classList.toggle('hid',!on)}
 async function load(){
   try{

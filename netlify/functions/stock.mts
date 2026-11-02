@@ -46,8 +46,6 @@ export default async (req: Request, context: Context) => {
   let body: any = {};
   try { body = await req.json(); } catch { return json({ error: "bad json" }, 400); }
   const action = String(body.action || "");
-  const token = Netlify.env.get("STOCK_ADMIN_TOKEN") || "";
-  const isAdmin = !!token && req.headers.get("x-admin-token") === token;
 
   // ---------- public: reserve ----------
   if (action === "reserve") {
@@ -72,7 +70,24 @@ export default async (req: Request, context: Context) => {
   }
 
   // ---------- admin ----------
-  if (!isAdmin) return json({ error: "unauthorized" }, 401);
+  // Brute-force guard: 5 wrong codes within 15 min from one IP -> locked for 15 min.
+  // Failures are stored as separate append-only keys (no read-modify-write counter).
+  const token = Netlify.env.get("STOCK_ADMIN_TOKEN") || "";
+  const ip = String(context.ip || "unknown").replace(/[^0-9a-fA-F.:]/g, "").slice(0, 64) || "unknown";
+  const WINDOW = 15 * 60 * 1000, MAX_FAILS = 5, now = Date.now();
+  const prefix = `authfail/${ip}/`;
+  const { blobs: failKeys } = await store().list({ prefix });
+  const recent = failKeys.filter(b => now - Number(b.key.slice(prefix.length).split("-")[0]) < WINDOW);
+  await Promise.all(failKeys.filter(b => !recent.includes(b)).map(b => store().delete(b.key).catch(() => {})));
+  if (recent.length >= MAX_FAILS) {
+    const oldest = Math.min(...recent.map(b => Number(b.key.slice(prefix.length).split("-")[0])));
+    return json({ error: "locked", retryAfterMin: Math.max(1, Math.ceil((oldest + WINDOW - now) / 60000)) }, 429);
+  }
+  if (!token || req.headers.get("x-admin-token") !== token) {
+    await store().setJSON(`${prefix}${now}-${Math.random().toString(36).slice(2, 8)}`, { at: now });
+    return json({ error: "unauthorized", attemptsLeft: MAX_FAILS - recent.length - 1 }, 401);
+  }
+  await Promise.all(recent.map(b => store().delete(b.key).catch(() => {})));
 
   if (action === "set") {
     const incoming = body.stock || {};
